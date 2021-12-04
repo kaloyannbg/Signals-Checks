@@ -4,30 +4,25 @@
 #include <time.h>
 #include <signal.h>
 
+
 void sig_handler(int signum)
 {
 
-	printf("ALARM\n");
+    printf("ALARM\n");
+    exit(EXIT_SUCCESS);
 }
 
 int main()
 {
-	alarm(60);
-	int iSecC = 0;
-	while (1)
-	{
-		if (iSecC < 60)
-		{
-			printf("%d\n", ++iSecC);
-			sleep(1);
-		}
-		else
-		{
-			signal(SIGALRM, SIG_DFL);
-			iSecC = 0;
-			printf("%d\n", ++iSecC);
-			sleep(1);
-		}
-	}
-	return 0;
+    signal(SIGALRM, sig_handler);
+    alarm(60);
+    time_t currTime = time(NULL);
+    int a = 0;
+    while (1)
+    {
+        printf("%d", time(NULL) - currTime);
+        printf("\n");
+        sleep(1);
+    }
+    return 0;
 }
