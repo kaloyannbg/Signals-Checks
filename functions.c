@@ -126,58 +126,48 @@ void printFirstNotEqualRowInTwoFiles(string file1, string file2) // EX-5
     fp = fopen(file1, "r");
     fp2 = fopen(file2, "r");
 
-    string fileGets = fgets(buffer, MAX_BUFF_SIZE, fp);
-    string fileGets2 = fgets(buffer2, MAX_BUFF_SIZE, fp2);
+    int cnt = 0;
+    int i = 0;
+    while (i < returnMaxN(file1Rows, file2Rows))
+    {
+        ++cnt;
+        i++;
+        string fileGets = fgets(buffer, MAX_BUFF_SIZE, fp);
+        string fileGets2 = fgets(buffer2, MAX_BUFF_SIZE, fp2);
 
-    if (strcmp(buffer, buffer2) != 0)
-    {
-        printf("Line 1: %s: %s != %s: %s  ", file1, buffer, file2, buffer2);
-    }
-    else
-    {
-        int cnt = 1;
-        int i = 0;
-        while (i < returnMaxN(file1Rows, file2Rows))
+        if (fileGets != NULL || fileGets2 != NULL)
         {
-            ++cnt;
-            i++;
-            fileGets = fgets(buffer, MAX_BUFF_SIZE, fp);
-            fileGets2 = fgets(buffer2, MAX_BUFF_SIZE, fp2);
-
-            if (fileGets != NULL || fileGets2 != NULL)
+            if (checkNewLine(buffer) == 1)
             {
-                if (checkNewLine(buffer) == 1)
-                {
-                    buffer[strlen(buffer) - 1] = '\0';
-                }
-                if (checkNewLine(buffer2) == 1)
-                {
-                    buffer2[strlen(buffer2) - 1] = '\0';
-                }
+                buffer[strlen(buffer) - 1] = '\0';
+            }
+            if (checkNewLine(buffer2) == 1)
+            {
+                buffer2[strlen(buffer2) - 1] = '\0';
+            }
 
-                if (fileGets == NULL)
-                {
-                    printf("Line: %d -- ", cnt);
-                    printf("%s: %s != %s: (EMPTY LINE)\n", file2, buffer2, file1);
-                    return;
-                }
-                else if (fileGets2 == NULL)
-                {
-                    printf("Line: %d -- ", cnt);
-                    printf("%s: %s != %s: (EMPTY LINE)\n", file1, buffer, file2);
-                    return;
-                }
-                else if (strcmp(buffer, buffer2) != 0)
-                {
-                    printf("Line: %d -- ", cnt);
-                    printf("%s: %s != %s: %s  ", file1, buffer, file2, buffer2);
-                    return;
-                }
+            if (fileGets == NULL)
+            {
+                printf("Line: %d -- ", cnt);
+                printf("%s: %s != %s: (EMPTY LINE)\n", file2, buffer2, file1);
+                return;
+            }
+            else if (fileGets2 == NULL)
+            {
+                printf("Line: %d -- ", cnt);
+                printf("%s: %s != %s: (EMPTY LINE)\n", file1, buffer, file2);
+                return;
+            }
+            else if (strcmp(buffer, buffer2) != 0)
+            {
+                printf("Line: %d -- ", cnt);
+                printf("%s: %s != %s: %s  ", file1, buffer, file2, buffer2);
+                return;
             }
         }
-
-        printf("MAX ROWS IN FILE : %d", cnt);
     }
+
+    printf("MAX ROWS IN FILE : %d", cnt);
 }
 
 // void sig_handler(int signum)
