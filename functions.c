@@ -169,22 +169,3 @@ void printFirstNotEqualRowInTwoFiles(string file1, string file2) // EX-5
 
     printf("MAX ROWS IN FILE : %d", cnt);
 }
-
-// void sig_handler(int signum)
-// {
-//     printf("Inside handler function\n");
-// }
-
-// void timeLoop()
-// {
-
-//     time_t currTime = time(NULL);
-//     while (currTime)
-//     {
-//         system("cls");
-//         printf("%d", time(NULL));
-//         signal(SIGALRM, sig_handler); // Register signal handler
-
-//         sleep(1);
-//     }
-// }
